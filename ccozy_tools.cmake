@@ -227,11 +227,11 @@ function(ccozy_on_configuration_end_vscode)
   set(dst "${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json")
 
   if(NOT EXISTS "${src}")
-      message(FATAL_ERROR "ccozy: compile_commands.json not found at: ${src}")
+      message(INFO "ccozy: compile_commands.json not found at: ${src}")
+  else()
+      file(COPY_FILE "${src}" "${dst}" ONLY_IF_DIFFERENT)
+      message(STATUS "ccozy: ${dst} replaced by ${src}")
   endif()
-
-  file(COPY_FILE "${src}" "${dst}" ONLY_IF_DIFFERENT)
-  message(STATUS "ccozy: ${dst} replaced by ${src}")
 
   ccozy_generate_launch_json_file()
 
